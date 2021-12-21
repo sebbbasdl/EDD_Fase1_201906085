@@ -1,4 +1,4 @@
-* {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -10,8 +10,8 @@
   }
   
   .form-login {
-    width: 400px;
-    height: 900px;
+    width: 1400px;
+    height: 1000px;
     background: #4e4d4d;
     margin: auto;
     margin-top: 0px;

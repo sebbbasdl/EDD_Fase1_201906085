@@ -1,4 +1,5 @@
 //Arbol AVL, Lista doble enlazada , Matriz
+var idretorna=0
 
 class nodoAVL{
     
@@ -183,7 +184,7 @@ class arbolAVL{
     mostrar_nodos(raizprimera){ 
         let nodos1 ="";
         if(raizprimera != null){
-            let listaa= raizprimera.lista.mostrarlista();
+            
             nodos1+= "->"+raizprimera.id+" "+raizprimera.usuario+"\t"+raizprimera.password+raizprimera.lista.mostrarlista()+raizprimera.matriz.recorrerMatriz()+"\n";
             nodos1+=this.mostrar_nodos(raizprimera.izquierda);
             nodos1+=this.mostrar_nodos(raizprimera.derecha);
@@ -195,40 +196,98 @@ class arbolAVL{
 
     
 
-    buscarycomprobar(raizprimera, id, password){
+    buscarycomprobar(raizprimera, usuario, password){
+        let bool= false
         
-        if(raizprimera != null /*&& respuesta=="false"*/ ){
-            if(raizprimera.id==id && raizprimera.password==password){
-                //respuesta="true"        
-                console.log("True")
+
+        if(raizprimera!=null){
+            //console.log(raizprimera.usuario+"-<"+raizprimera.password)
+            //console.log(usuario+"-<"+password)
+            
+            if(raizprimera.usuario==usuario && raizprimera.password==password){
+                //respuesta="true" 
+                bool =true     
+                
+                
                 return true
                 
                 
 
             }else{
-                this.buscarycomprobar(raizprimera.izquierda,id,password);
-                this.buscarycomprobar(raizprimera.derecha,id,password);
-                return false
+                //console.log("entre a else")
+                if(this.buscarycomprobar(raizprimera.izquierda,usuario,password)==true | this.buscarycomprobar(raizprimera.derecha,usuario,password)==true ){
+                    //console.log("entre2")
+                    let xd="xd"
+                    return true
+                
+                
                 //console.log("False")
+                }else{
+                    //console.log("entre2")
+                    return false
+                }
                 
                 
                 
+            } 
                 
-            }
+        }  
+        
+        
             
-             
-        }
-        return false
+        
+        
+        
         
         
         
         
     }
 
-    buscar(id,password){
+    retornaid(raizprimera, usuario, password){
+        
+        
+        while(raizprimera!=null){
+            if(raizprimera.usuario==usuario && raizprimera.password==password){
+                //console.log("entre if"+raizprimera.id)
+                idretorna=raizprimera.id
+               
+                return raizprimera.id
+                
+
+
+            }else{
+                //console.log("entre else"+raizprimera.id)
+                this.retornaid(raizprimera.derecha,usuario,password)
+                this.retornaid(raizprimera.izquierda,usuario,password)
+                break;
+            }
+            
+        }
+
+        return idretorna
+
+        
+        
+        
+
+        
+        
+        
+            
+        
+        
+        
+        
+        
+        
+        
+    }
+
+    buscar(id,usuario,password){
         let aux= this.raiz;
-        console.log(aux.id+"-<"+aux.password)
-        console.log(id+"-<"+password)
+        console.log(aux.id+aux.usuario+"-<"+aux.password)
+        console.log(id+usuario+"-<"+password)
         
 
         while( aux.id!=id  ){
@@ -257,7 +316,7 @@ class arbolAVL{
         //console.log(aux.password)
         //console.log(password)
 
-        if(String(aux.password) == String(password)){
+        if(String(aux.password) == String(password) && String(aux.usuario) == String(usuario)){
 
             //console.log(aux.password)
             //console.log(password)
@@ -271,22 +330,76 @@ class arbolAVL{
         }
 
     }
+    buscar2(usuario,password,bool){
+
+        let aux= this.raiz;
+        console.log(aux.usuario+"-<"+aux.password)
+        console.log(usuario+"-<"+password)
+        console.log("soy bool"+bool)
+        
+
+        while(bool==false){
+            if(aux.usuario==usuario && aux.password==password){
+                bool=true
+                break;
+            }      
+            else{
+                this.buscar2(aux.derecha.usuario,aux.derecha.password,bool)
+                this.buscar2(aux.izquierda.usuario,aux.izquierda.password,bool)
+            }
+            
+        
+        }
+        return bool
+
+        
+
+    }
     
         
 
     insertarlista2(raizprimera,id,idcliente,nombrec,correoc){
         if(raizprimera!=null){
             if(raizprimera.id==id){
-                raizprimera.lista.insertarlista(idcliente,nombrec,correoc)
+                /*console.log("antes de insertarlista"+raizprimera.id+idcliente+nombrec+correoc)
+                console.log(raizprimera.lista)
+                raizprimera.lista.insertarlista(idcliente,nombrec,correoc);**/
+
+
+                
+
+                
+                //listaclientes.mostrarlista()
+
+                //raizprimera.lista=listaclientes
+                let listaclientes= new listaDobleEnlazada()
+                let aux= raizprimera.lista.primero
+                while(aux!=null){
+                    var dato1=aux.idcliente
+                    var dato2=aux.nombrec
+                    var dato3=aux.correoc
+                    listaclientes.insertarlista(dato1,dato2,dato3)
+                    aux=aux.siguiente
+                }
+
+                listaclientes.insertarlista(idcliente,nombrec,correoc)
+                raizprimera.lista=listaclientes
+
+                console.log(raizprimera.lista.mostrarlista())
+                
             }else{
                 this.insertarlista2(raizprimera.izquierda,id,idcliente,nombrec,correoc)
                 this.insertarlista2(raizprimera.derecha,id,idcliente,nombrec,correoc)
                 
+                
             }
+
 
             
         }
     }
+
+    
 
 
     insertarMatriz2(raizprimera,id,evento,dia,hora){
@@ -334,7 +447,7 @@ class nodolistadoble{
         this.nombrec=nombrec;
         this.correoc=correoc;
         this.siguiente = null;
-        this.anterior = null;
+        //this.anterior = null;
         
     }
     
@@ -355,16 +468,16 @@ class listaDobleEnlazada{
             while(aux.siguiente != null){
                 if(aux.idcliente==idcliente){
                     console.log("No se puede insertar el valor por que ya existe");
-                    return
+                    //return
                 }
                 aux = aux.siguiente;
             };
             if(aux.idcliente==idcliente){
                 console.log("No se puede insertar el valor por que ya existe");
-                return
+                //return
             }
             aux.siguiente = nuevo;
-            nuevo.anterior = aux;
+            //nuevo.anterior = aux;
         }
     }
 
@@ -698,40 +811,42 @@ class matriz{
 
 
 
-arbol = new arbolAVL();
+var arbol = new arbolAVL();
 
-arbol.insertarnodoAVL1(30,"Sebas","sebbbasdl",21,"sebascss22@gmail.com","451253321");
-arbol.insertarnodoAVL1(40,"Sebas","sebbbasdl",21,"sebascss22@gmail.com","451253321");
-arbol.insertarnodoAVL1(20,"Sebas","sebbbasdl",21,"sebascss22@gmail.com","451253321");
-arbol.insertarnodoAVL1(10,"Sebas","sebbbasdl",21,"sebascss22@gmail.com","451253321");
-arbol.insertarnodoAVL1(5,"Sebas","sebbbasdl",21,"sebascss22@gmail.com","451253321");
-arbol.insertarnodoAVL1(70,"Sebas","sebbbasdl",21,"sebascss22@gmail.com","451253321");
-arbol.insertarnodoAVL1(7,"Sebas","sebbbasdl",21,"sebascss22@gmail.com","451253321");
-arbol.insertarnodoAVL1(100,"Sebas","sebbbasdl",21,"sebascss22@gmail.com","451253321");
-arbol.insertarlista2(arbol.raiz,30,100,"Alejandro","sebas@hotmail.com");
-arbol.insertarlista2(arbol.raiz,40,10,"Roberto","sebas@hotmail.com");
-arbol.insertarlista2(arbol.raiz,40,11,"hola","sebas@hotmail.com");
-arbol.insertarlista2(arbol.raiz,70,12,"herbert","sebas@hotmail.com");
+/*arbol.insertarnodoAVL1(30,"Sebas","sebbbasdl",21,"sebascss22@gmail.com","451253321");
+arbol.insertarnodoAVL1(40,"jorge","jorge1243",21,"sebascss22@gmail.com","451253321");
+arbol.insertarnodoAVL1(20,"Ronaldo","cr7",21,"sebascss22@gmail.com","451253321");
+arbol.insertarnodoAVL1(10,"Alejandro","ale2000",21,"sebascss22@gmail.com","451253321");
+arbol.insertarnodoAVL1(5,"Roberto","robert",21,"sebascss22@gmail.com","451253321");
+arbol.insertarnodoAVL1(70,"Javier","javi321",21,"sebascss22@gmail.com","451253321");
+arbol.insertarnodoAVL1(7,"Rodrigo","rodri",21,"sebascss22@gmail.com","451253321");
+arbol.insertarnodoAVL1(100,"Mariajose","majo",21,"sebascss22@gmail.com","451253321");*/
+//arbol.insertarlista2(arbol.raiz,30,100,"Alejandro","sebas@hotmail.com");
+//arbol.insertarlista2(arbol.raiz,40,10,"Roberto","sebas@hotmail.com");
+//arbol.insertarlista2(arbol.raiz,40,11,"hola","sebas@hotmail.com");
+//arbol.insertarlista2(arbol.raiz,70,12,"herbert","sebas@hotmail.com");
 
-arbol.insertarMatriz2(arbol.raiz,30,"Tarea Fisica",5,12);
-arbol.insertarlista2(arbol.raiz,30,18,"herbert","sebas@hotmail.com");
+//arbol.insertarMatriz2(arbol.raiz,30,"Tarea Fisica",5,12);
+//arbol.insertarlista2(arbol.raiz,30,18,"herbert","sebas@hotmail.com");
 //arbol.mostrar_nodos(arbol.raiz);
-//console.log(arbol.buscarycomprobar(arbol.raiz,40,"451253321"))
+//console.log(arbol.retornaid(arbol.raiz,"cr7","451253321"))
+//console.log(arbol.retornaid(arbol.raiz,"sebbbasdl","451253321"))
+//console.log(arbol.retornaid(arbol.raiz,"javi321","451253321"))
+//console.log(arbol.retornaid(arbol.raiz,"majo","451253321"))
+//console.log(arbol.buscarycomprobar(arbol.raiz,"jorge1243","451253321"))
+//console.log(arbol.buscarycomprobar(arbol.raiz,"rodri","451253321"))
 //let prueba=String(arbol.buscarycomprobar(arbol.raiz,40,"451253321"))
-console.log(arbol.buscar(70,"451253321"));
-console.log(arbol.buscar(400,"451253321"));
-console.log(arbol.buscar(70,"451s253321"));
-console.log(arbol.buscar(30,"451253321"));
+//console.log(arbol.buscar(30,"sebbbasdl","451253321"));
+//console.log(arbol.buscar(400,"sebbbasdl","451253321"));
+//console.log(arbol.buscar(70,"javi321","451s253321"));
+//console.log(arbol.buscar(20,"cr7","451253321"));
 
 
+//console.log(arbol.buscar2("sebbbasdl1","451253321",false))
 
-if (arbol.buscar(70,"451253321")==true){
-    console.log("en efecto")
-}else{
-    console.log("nelson")
-}
-
-
+//arbol.insertarnodoAVL1(30,"Sebas","sebbbasdl",21,"sebascss22@gmail.com","451253321");
+//arbol.insertarlista2(arbol.raiz,30,100,"Alejandro","sebas@hotmail.com");
+//arbol.mostrar_nodos(arbol.raiz)
 
 /*let matriz1 = new matriz();
 
@@ -751,28 +866,122 @@ matriz1.graficarMatriz();*/
 
 //arbol.cadenaDot();
 
+
+//console.log(arbol.buscar2("sebbbasdl1","451253321",false))
+
 function obteneravl(){
     
     arbol.cadenaNodos(arbol.raiz)
+    
     if(arbol==null){
         console.log("no existe arbol avl")
     }
     return arbol
 }
 
-function validar(idp, passwordp){
-    console.log("entre")
-    var arbol=obteneravl();
+function validar(usuariop, passwordp){
+    recuperarAVL()
+    //recuperarABB()
+    //var arbol=obteneravl();
     var acceso=false
-    console.log(idp,passwordp)
-    arbol.buscar(idp,passwordp)
-    if(arbol.buscar(idp,passwordp)==true){
-        console.log("entre")
+    console.log(usuariop,passwordp)
+    
+    //arbol.mostrar_nodos(arbol.raiz)
+    arbol.buscarycomprobar(arbol.raiz,usuariop,passwordp)
+    if(arbol.buscarycomprobar(arbol.raiz,usuariop,passwordp)==true){
+        let id1=arbol.retornaid(arbol.raiz,usuariop,passwordp)
+        
         acceso=true
-        sessionStorage.setItem('usuario',idp, passwordp)
-        sessionStorage.setItem('rol',1)
+        sessionStorage.setItem('usuario',usuariop)
+        sessionStorage.setItem('password',passwordp)
+        sessionStorage.setItem('id',id1)
+        sessionStorage.setItem('arbol',arbol)
+        //sessionStorage.setItem('arbolabb',arbolabb)
+
+        
     }
 
     return acceso
 
 }
+
+
+function registrarEnListaClientes(idV,idC,nombreC,correoC){
+    /*var arbol1=JSON.parse(sessionStorage.getItem('arbol'))
+    arbol= new arbolAVL()
+    arbol1= JSON.parse(arbol1)
+    Object.assign(arbol,arbol1)*/
+    /*arbol1=sessionStorage.getItem('arbol')
+    if(arbol==arbol1){
+        console.log("igual")
+    }else{
+        console.log("f")
+    }
+    arbol1.mostrar_nodos(arbol1.raiz)*/
+    //var arbolt=CircularJSON.stringify(arbol)
+    
+    //arbol.insertarlista2(arbol.raiz,idV,idC,nombreC,correoC)
+    //sessionStorage.setItem('arbol',JSON.stringify(arbol))
+    //JSON.parse(sessionStorage.getItem('arbol'))
+
+
+    //console.log("estoy aca"+arbol.raiz)
+    
+    arbol.insertarlista2(arbol.raiz,idV,idC,nombreC,correoC)
+    
+    sessionStorage.setItem('arbol',JSON.stringify(arbol))
+    //console.log("inserte")
+    
+    
+
+    //arbol.mostrar_nodos(arbol.raiz)
+
+}
+//arbol.insertarnodoAVL1(40,"jorge","jorge1243",21,"sebascss22@gmail.com","451253321");
+
+function registrarvendedor1(idRV,nombreRV,usuarioRV,edadRV,correoRV,passwordRV){
+    
+
+
+    
+    arbol.insertarnodoAVL1(idRV,nombreRV,usuarioRV,edadRV,correoRV,passwordRV)
+    //arbol.insertarlista2(arbol.raiz,30,100,"Alejandro","sebas@hotmail.com");
+    sessionStorage.setItem('arbol',JSON.stringify(arbol))
+    //arbol.mostrar_nodos(arbol.raiz)
+    
+}
+function recuperarAVL(){
+    var arboltemp=JSON.parse(sessionStorage.getItem('arbol',JSON.stringify('arbol')))
+    arbol=new arbolAVL()
+    //arboltemp=CircularJSON.parse(arboltemp)
+    Object.assign(arbol,arboltemp)
+    
+    //recorreravl(arbol.raiz)
+
+
+
+
+
+    /*var arbol1= sessionStorage.getItem('arbol')
+    arbol= new arbolAVL()
+    Object.assign(arbol,arbol1)*/
+}
+
+/*function recorreravl(raizprimera){
+    if(raizprimera!=null){
+        var temp=raizprimera.lista
+        var lista2= new listaDobleEnlazada()
+        Object.assign(lista2,temp)
+        raizprimera.lista=lista2
+
+        recorreravl(raizprimera.derecha)
+        recorreravl(raizprimera.izquierda)
+
+        
+    }
+}*/
+
+
+
+
+//451253321

@@ -109,11 +109,25 @@ class arbolABB{
     }
 }
 
-arbol1= new arbolABB();
-arbol1.insertarnodo1(30,"Sebastian","calle 13",42058019,"sebas@gmail.com");
-arbol1.insertarnodo1(25,"Sebastian","calle 13",42058019,"sebas@gmail.com");
-arbol1.insertarnodo1(35,"Sebastian","calle 13",42058019,"sebas@gmail.com");
-arbol1.insertarnodo1(45,"Sebastian","calle 13",42058019,"sebas@gmail.com");
-arbol1.insertarnodo1(31,"Sebastian","calle 13",42058019,"sebas@gmail.com");
+var arbolabb= new arbolABB();
+/*arbolabb.insertarnodo1(30,"Sebastian","calle 13",42058019,"sebas@gmail.com");
+arbolabb.insertarnodo1(25,"Sebastian","calle 13",42058019,"sebas@gmail.com");
+arbolabb.insertarnodo1(35,"Sebastian","calle 13",42058019,"sebas@gmail.com");
+arbolabb.insertarnodo1(45,"Sebastian","calle 13",42058019,"sebas@gmail.com");
+arbolabb.insertarnodo1(31,"Sebastian","calle 13",42058019,"sebas@gmail.com");*/
 
-arbol1.cadenaDot();
+//arbolabb.cadenaDot();
+
+function registrarproveedor1(idp,nombrep,direccionp,telefonop,correop){
+
+
+    arbolabb.insertarnodo1(idp,nombrep,direccionp,telefonop,correop)
+    sessionStorage.setItem('arbolabb',JSON.stringify(arbolabb))
+}
+
+function recuperarABB(){
+    var arboltemp1=JSON.parse(sessionStorage.getItem('arbolabb',JSON.stringify('arbolabb')))
+    arbolabb=new arbolABB()
+    //arboltemp=CircularJSON.parse(arboltemp)
+    Object.assign(arbolabb,arboltemp1)
+}
