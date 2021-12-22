@@ -1,4 +1,6 @@
 //Arbol abb
+
+
 class nodoABB{
     constructor(id,nombre,direccion,telefono,correo){
         this.id = id;
@@ -8,6 +10,7 @@ class nodoABB{
         this.correo=correo;
         this.izquierda = null;
         this.derecha = null;
+        this.altura=0
     }
 }
 
@@ -21,6 +24,7 @@ class arbolABB{
 
         if(this.raiz == null){
             this.raiz= nuevo;
+            nuevo.altura=0
         }else{
             this.raiz = this.insertarnodo2(this.raiz,nuevo);
         }
@@ -30,9 +34,11 @@ class arbolABB{
         if(raizprimera != null){
             
             if(raizprimera.id > nuevo.id){
+                nuevo.altura+=1
                 raizprimera.izquierda = this.insertarnodo2(raizprimera.izquierda,nuevo);
-
+                
             }else if(raizprimera.id < nuevo.id){
+                nuevo.altura+=1
                 raizprimera.derecha = this.insertarnodo2(raizprimera.derecha,nuevo);
             }else{
                 console.log("NO SE PUEDE INSERTAR EL ID PORQUE YA EXISTE");
@@ -88,13 +94,17 @@ class arbolABB{
 
     cadenaNodos(raizprimera){ 
         let nodos ="";
+        
         if(raizprimera != null){
             nodos+= "n"+raizprimera.id+"[label=\""+raizprimera.id+"\t"+raizprimera.nombre+"\t"+raizprimera.direccion+"\t"+raizprimera.telefono+"\"]\n";
             nodos+=this.cadenaNodos(raizprimera.izquierda);
             nodos+=this.cadenaNodos(raizprimera.derecha);
+            //console.log("id: "+raizprimera.id+" altura: "+raizprimera.altura)
+            
         }
         return nodos;
     }
+
 
     
 
@@ -110,19 +120,22 @@ class arbolABB{
 }
 
 var arbolabb= new arbolABB();
-/*arbolabb.insertarnodo1(30,"Sebastian","calle 13",42058019,"sebas@gmail.com");
+/*arbolabb.insertarnodo1(20,"Sebastian","calle 13",42058019,"sebas@gmail.com");
 arbolabb.insertarnodo1(25,"Sebastian","calle 13",42058019,"sebas@gmail.com");
+arbolabb.insertarnodo1(15,"Sebastian","calle 13",42058019,"sebas@gmail.com");
 arbolabb.insertarnodo1(35,"Sebastian","calle 13",42058019,"sebas@gmail.com");
-arbolabb.insertarnodo1(45,"Sebastian","calle 13",42058019,"sebas@gmail.com");
-arbolabb.insertarnodo1(31,"Sebastian","calle 13",42058019,"sebas@gmail.com");*/
-
-//arbolabb.cadenaDot();
+arbolabb.insertarnodo1(23,"Sebastian","calle 13",42058019,"sebas@gmail.com");
+arbolabb.insertarnodo1(18,"Sebastian","calle 13",42058019,"sebas@gmail.com");
+arbolabb.insertarnodo1(10,"Sebastian","calle 13",42058019,"sebas@gmail.com");
+arbolabb.cadenaNodos(arbolabb.raiz)
+arbolabb.cadenaDot();*/
 
 function registrarproveedor1(idp,nombrep,direccionp,telefonop,correop){
 
 
     arbolabb.insertarnodo1(idp,nombrep,direccionp,telefonop,correop)
     sessionStorage.setItem('arbolabb',JSON.stringify(arbolabb))
+    arbolabb.cadenaDot()
 }
 
 function recuperarABB(){

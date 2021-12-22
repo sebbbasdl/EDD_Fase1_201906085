@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Formulario Login</title>
+    <title>Administrador</title>
     <link rel="stylesheet" href="style3.css">
   </head>
   <body>
@@ -16,13 +16,14 @@
         <input class="controls" type="edad" name="edad" value="" placeholder="Edad" id="txtEdad" >
         <input class="controls" type="correo" name="correo" value="" placeholder="Correo Electronico" id="txtCorreo2" >
         <input class="controls" type="password" name="contrasena" value="" placeholder="Contraseña" id="txtPassword" >
+        <br><br>
         <input class="buttons" type="button"  value="Registrar Cliente" id="btnRegistrarVendedor">
         
         
     </form>
 
     </section>
-
+    <br><br><br><br><br>
     <section class="form-login">
         <h5>REGISTRO DE PROVEEDORES</h5>
         <form>
@@ -32,19 +33,57 @@
           
           <input class="controls" type="edad" name="edad" value="" placeholder="Telefono" id="txtTelefono1" >
           <input class="controls" type="correo" name="correo" value="" placeholder="Correo Electronico" id="txtCorreo21" >
+          <br><br>
           <input class="buttons" type="button"  value="Registrar Cliente" id="btnRegistrarProveedor">
           
           
       </form>
       
+    </section>
+
+
+    <br><br><br><br><br>
+      <section class="form-loginA">
+        <h5>CARGA DE ARCHIVO VENDEDORES</h5>
+        <input type="file", id="archivoV">
       </section>
 
+    
+      <br><br><br><br><br>
+    <section class="form-loginA">
+      <h5>CARGA DE ARCHIVO CLIENTES</h5>
+      <input type="file", id="archivoClientes">
+    </section>
+
+    <<br><br><br><br><br>
+    <section class="form-loginA">
+      <h5>CARGA DE ARCHIVO PROVEEDORES</h5>
+      <input type="file", id="archivoProveedores">
+    </section>
+    <br><br><br><br><br>
+    <section class="form-login2">
+      <h5>REPORTE</h5>
+      <br>
+      <input class="buttons" type="button"  value="PROVEEDORES" id="btnGrafos">
+      <br><br>
+      <input class="buttons" type="button"  value="VENDEDORES" id="btnGrafosV">
+      <br><br><br>
+      <input type="hidden" id="direction" value="UD" />
+      <div id="mynetwork">
+
+      </div>
+      <br><br><br><br><br>
+      <br><br><br><br><br>
+      
+    </section>
 
      
     <script src="empleados.js"></script>  
     <script src="admin.js"></script>
     <script src="circular-json.js"></script> 
     <script src="proveedores.js"></script> 
+    <script src="grafos.js"></script> 
+    <script src="vis-network.min.js"></script> 
     
     
     

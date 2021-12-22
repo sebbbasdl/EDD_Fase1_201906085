@@ -18,9 +18,38 @@
 
     </section>
      
+    <br><br><br><br><br>
+    <section class="form-login">
+      <h5>REGISTRO DE EVENTOS</h5>
+      <form>
+        <input class="controls" type="text" name="id" value="" placeholder="Evento" id="txtEvento">
+        <input class="controls" type="nombre" name="nombre" value="" placeholder="Dia" id="txtDia" >
+        <input class="controls" type="correo" name="correo" value="" placeholder="Hora" id="txtHora" >
+        <input class="buttons" type="button"  value="Registrar Cliente" id="btnRegistrarEvento">
+        
+    </form>
+
+    </section>
+    <br><br><br><br><br>
+    <section class="form-login2">
+      <h5>REPORTE</h5>
+      <br>
+      <input class="buttons" type="button"  value="CLIENTES" id="btnGrafosC">
+      <br><br>
+      <input class="buttons" type="button"  value="EVENTOS" id="btnGrafosE">
+      <br><br><br>
+      <input type="hidden" id="direction" value="UD" />
+      <div id="mynetwork">
+
+      </div>
+      <br><br><br><br><br>
+      <br><br><br><br><br>
+      
+    </section>
     <script src="clientesCal.js"></script>  
     <script src="empleados.js"></script>
     <script src="circular-json.js"></script> 
+    <script src="vis-network.min.js"></script> 
     
   </body>
 </html>

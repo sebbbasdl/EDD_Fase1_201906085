@@ -51,7 +51,8 @@ function ingresoCorrecto(rol){
 
         //var arbolt=CircularJSON.stringify(arbol)
         //var arboltemp=JSON.stringify(arbol)
-        sessionStorage.setItem('arbol',JSON.stringify(arbol))
+        //sessionStorage.setItem('arbol',CircularJSON.stringify(arbol))
+        sessionStorage.setItem('arbol',JSON.stringify(CircularJSON.stringify(arbol)))
         
         location.href='vendedor.html'
         
