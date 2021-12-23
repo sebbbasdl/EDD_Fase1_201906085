@@ -1,5 +1,6 @@
 //Arbol AVL, Lista doble enlazada , Matriz
 var idretorna=0
+var contador=0
 
 class nodoAVL{
     
@@ -15,8 +16,8 @@ class nodoAVL{
         this.derecha = null;
         this.altura = 0;
         this.lista= new listaDobleEnlazada();
-        this.listameses=new listaDobleEnlazada();
-        this.matriz=new matriz()
+        this.listameses=new listaMes();
+        //this.matriz=new matriz()
 
     }
 }
@@ -44,26 +45,27 @@ class arbolAVL{
                 
                 
                 if(this.altura(raizprimera.derecha)-this.altura(raizprimera.izquierda)==-2){
-                    console.log("entra a rotacion izquierdaUIERDA");
+                    //rot izquierda
                     
                     if(nuevo.id < raizprimera.izquierda.id){ 
-                        console.log("entra a rotacion izquierdaUIERDA izquierdaUIERDA");
+                        //rot izquierda izquierda
                         raizprimera = this.simpleIzquierda(raizprimera);
                     }else{ 
-                        // 
-                        console.log("entra a rotacion izquierdaUIERDA derechaECHA");
+                        // izquierda derecha
+                        //console.log("entra a rotacion izquierdaUIERDA derechaECHA");
+                        //raizprimera.thisizquierdaaDerecha
                         raizprimera = this.izquierdaDerecha(raizprimera);
                     }
                 }
             }else if(raizprimera.id < nuevo.id){
                 raizprimera.derecha = this.insertarnodoAVL2(raizprimera.derecha,nuevo);
                 if(this.altura(raizprimera.derecha)-this.altura(raizprimera.izquierda)==2){
-                    console.log("entra a rotacion derechaECHA");
+                    //rotderecha
                     if(nuevo.id > raizprimera.derecha.id){ // 
-                        console.log("entra a rotacion derechaECHA derechaECHA");
+                        //rot derechax2
                         raizprimera=this.simpleDerecha(raizprimera);
                     }else{//
-                        console.log("entra a rotacion derechaECHA izquierdaUIERDA");
+                        //rot derecha-izquierda
                         raizprimera = this.derechaIzquierda(raizprimera);
                     }
                 }
@@ -80,26 +82,36 @@ class arbolAVL{
         }
     }
     
-
-    obtenerAlturaMaxima(h1,h2){
-        if(h2>=h1){ 
-            return h2;
-        }else{
-            return h1;
-        }
-
-    }
-    
     altura(nodo){
         if(nodo != null){
+
+
+            //return this.nodo.altura
             return nodo.altura;
         }else{
             return -1;
         }
     }
 
+
+    obtenerAlturaMaxima(alto1,alto2){
+
+
+        if(alto2>=alto1){ 
+
+            //return alto1
+            return alto2;
+        }else{
+
+            //return alto2
+            return alto1;
+        }
+
+    }
     
-    //ROTACIONES
+    
+
+    
     
     simpleIzquierda(nodo){
         let aux = nodo.izquierda;
@@ -187,7 +199,7 @@ class arbolAVL{
         let nodos1 ="";
         if(raizprimera != null){
             
-            nodos1+= "->"+raizprimera.id+" "+raizprimera.usuario+"\t"+raizprimera.password+raizprimera.lista.mostrarlista()+raizprimera.matriz.recorrerMatriz()+"\n";
+            nodos1+= "->"+raizprimera.id+" "+raizprimera.usuario+"\t"+raizprimera.password+raizprimera.lista.mostrarlista()+raizprimera.matriz.recorrermatriz2()+"\n";
             nodos1+=this.mostrar_nodos(raizprimera.izquierda);
             nodos1+=this.mostrar_nodos(raizprimera.derecha);
             console.log(nodos1)
@@ -358,7 +370,47 @@ class arbolAVL{
 
     }
     
-        
+    eliminarlista2(raizprimera,id,idcliente){
+        if(raizprimera!=null){
+            if(raizprimera.id==id){
+                /*console.log("antes de insertarlista"+raizprimera.id+idcliente+nombrec+correoc)
+                console.log(raizprimera.lista)
+                raizprimera.lista.insertarlista(idcliente,nombrec,correoc);**/
+
+
+                
+
+                
+                //listaclientes.mostrarlista()
+
+                //raizprimera.lista=listaclientes
+                let listaclientes= new listaDobleEnlazada()
+                let aux= raizprimera.lista.primero
+                while(aux!=null){
+                    var dato1=aux.idcliente
+                    var dato2=aux.nombrec
+                    var dato3=aux.correoc
+                    listaclientes.insertarlista(dato1,dato2,dato3)
+                    aux=aux.siguiente
+                }
+
+                listaclientes.eliminar(idcliente)
+                raizprimera.lista=listaclientes
+                sessionStorage.setItem('listad',JSON.stringify(CircularJSON.stringify(listaclientes)))
+
+                console.log(raizprimera.lista.mostrarlista())
+                
+            }else{
+                this.insertarlista2(raizprimera.izquierda,id,idcliente)
+                this.insertarlista2(raizprimera.derecha,id,idcliente)
+                
+                
+            }
+
+
+            
+        }
+    }  
 
     insertarlista2(raizprimera,id,idcliente,nombrec,correoc){
         if(raizprimera!=null){
@@ -402,14 +454,212 @@ class arbolAVL{
         }
     }
 
-    
+
+    insertarlista2MES(raizprimera,id,mes,evento,dias,horas){
+        //console.log("muere2")
+        //console.log(raizprimera.id)
+        if(raizprimera!=null){
+           // console.log("muere3")
+            if(raizprimera.id==id){
+             //   console.log("muere4")
+                /*console.log("antes de insertarlista"+raizprimera.id+idcliente+nombrec+correoc)
+                console.log(raizprimera.lista)
+                raizprimera.lista.insertarlista(idcliente,nombrec,correoc);**/
+
+
+                
+                console.log("entre")
+                
+                //listaclientes.mostrarlista()
+
+                //raizprimera.lista=listaclientes
+                //console.log("estoy aca")
+                let listamesclientes= new listaMes()
+                let matrizmes=new matriz()
+                let matrizaux=new matriz()
+
+
+                if(contador==0){
+                    matrizaux.insertarMatriz(0,0,0)
+                    console.log(matrizaux)
+                    raizprimera.listameses.matriz1=matrizaux
+                    console.log(raizprimera.listameses.matriz1)
+                    contador+=1
+
+                }
+                console.log("soy contador "+contador)
+                //raizprimera.listameses.matriz1.insertarMatriz(" ",0,0)
+                let aux= raizprimera.listameses.primero
+
+                //console.log(raizprimera.listameses.matriz1)
+                
+                //insertar  listamesclientes
+                while(aux!=null){
+                    var dato1=aux.mes
+                    console.log(evento+dias+horas)
+                    listamesclientes.insertarlistaMes(dato1)
+                   
+                    aux=aux.siguiente
+                }
+                console.log(listamesclientes)
+
+                //recorrido lmc
+
+                
+                
+                /*let auxm=raizprimera.listameses.matriz1.cabecerasDias.primero
+                console.log(matrizmes.cabecerasDias.primero)
+                while(aux!=null){
+                    var dato1=aux.mes
+                    console.log(evento+dias+horas)
+                    listamesclientes.insertarlistaMes(dato1)
+                   
+                    aux=aux.siguiente
+                }*/
+                //raizprimera.listameses.matriz1.insertarMatriz(0,0,0)
+
+
+
+
+                let auxm=raizprimera.listameses.matriz1.cabecerasDias.primero
+                console.log(auxm)
+
+                while(auxm!=null){
+                    //cadenaMatriz+="   dias->"+aux.dato;
+                    //console.log("   dias->"+aux.dato);
+                    let aux2 = auxm.listaInterna.primero;
+                    while(aux2!=null){
+                        //cadenaMatriz+="       2-"+aux2.valor
+                        //console.log("       2-"+aux2.valor);
+                        //aux2 = aux2.sig;
+                        let aux3 =raizprimera.listameses.matriz1.cabecerasHoras.primero
+                        while(aux3 != null){
+                            //cadenaMatriz+="   horas->"+aux3.dato
+                            //console.log("   horas->"+aux3.dato);
+                            let aux4 = aux3.listaInterna.primero;
+                            while(aux4!= null){
+                                //console.log("2-"+aux2.valor)
+                                //console.log("4-"+aux4.valor)
+                                //cadenaMatriz+="       4-"+aux4.valor
+                                //console.log("       4-"+aux4.valor);
+
+                            if(aux2.valor==aux4.valor){
+                                    console.log("dato2: "+aux4.valor +" dia: "+auxm.dato+" hora: "+aux3.dato)
+                                    matrizmes.insertarMatriz(aux4.valor,auxm.dato,aux3.dato)
+
+                                    //cadenaMatriz+="       hola-"+aux4.valor
+                                    //console.log("       hola-"+aux4.valor);
+
+                                }
+                                
+                                aux4 = aux4.abajo;
+                            }
+                        
+                            aux3=aux3.sig
+                            
+                        }
+                        aux2=aux2.sig
+
+                    }
+                    auxm=auxm.sig
+                }
+
+                
+                //console.log(res)
+                /*if(listamesclientes.existeMes(mes)==true){
+                    matrizmes.insertarMatriz(evento,dias,horas)
+                    //console.log(matrizmes)
+                    //raizprimera.listameses=listamesclientes
+                    raizprimera.listameses.matriz1=matrizmes
+
+                }else{
+                    listamesclientes.insertarlistaMes(mes)
+
+                    matrizmes.insertarMatriz(evento,dias,horas)
+                    //console.log(matrizmes)
+                    raizprimera.listameses=listamesclientes
+                    raizprimera.listameses.matriz1=matrizmes
+                    
+
+                }*/
+                
+                let auxlmc=listamesclientes.primero
+                console.log("soy auxlmc"+auxlmc)
+                while(auxlmc!=null){
+                    console.log("estoy")
+                    if(auxlmc.mes==mes){
+                        console.log("estoy en mes y mes")
+                        //matrizmes.insertarMatriz(evento,dias,horas)
+                        //console.log(matrizmes)
+                        //raizprimera.listameses=listamesclientes
+                        auxlmc.matriz1=matrizmes
+                        console.log(mes)
+                        console.log(auxlmc.matriz1.graficarMatriz())
+
+                        break;
+                        //sessionStorage.setItem('listameses',JSON.stringify(CircularJSON.stringify(listamesclientes)))
+                        
+
+                    }
+                    auxlmc=auxlmc.siguiente
+                    
+                        
+                        
+
+                    
+                    
+                }
+
+                //console.log("estoy en else")
+                listamesclientes.insertarlistaMes(mes)
+
+                matrizmes.insertarMatriz(evento,dias,horas)
+                //console.log(matrizmes)
+                raizprimera.listameses=listamesclientes
+                raizprimera.listameses.matriz1=matrizmes
+                
+
+
+                
+
+                /*listamesclientes.insertarlistaMes(mes)
+
+                matrizmes.insertarMatriz(evento,dias,horas)
+                //console.log(matrizmes)
+                raizprimera.listameses=listamesclientes
+                raizprimera.listameses.matriz1=matrizmes
+                //res=raizprimera.listameses*/
+                
+            
+                sessionStorage.setItem('listameses',JSON.stringify(CircularJSON.stringify(listamesclientes)))
+                sessionStorage.setItem('matriz1',JSON.stringify(CircularJSON.stringify(matrizmes)))
+                console.log(raizprimera.listameses.matriz1)
+                console.log(raizprimera.listameses)
+
+                //console.log(raizprimera.listameses.mostrarlistaMes())
+                //console.log(raizprimera.listameses.matriz1.graficarMatriz())
+                //console.log(raizprimera.listameses)
+                //console.log(raizprimera.listameses.matriz1.existeMes(mes))
+                
+            }else{
+                this.insertarlista2MES(raizprimera.izquierda,id,mes,evento,dias,horas)
+                this.insertarlista2MES(raizprimera.derecha,id,mes,evento,dias,horas)
+                
+                
+            }
+
+
+            
+        }
+    }
+
 
 
     insertarMatriz2(raizprimera,id,evento,dia,hora){
         
         if(raizprimera!=null){
             if(raizprimera.id==id){
-                //raizprimera.matriz.insertarMatriz(evento,dia,hora)
+                /*//raizprimera.matriz.insertarMatriz(evento,dia,hora)
 
                 //let cadenaMatriz ="cabecera dias"
 
@@ -419,8 +669,17 @@ class arbolAVL{
                 let matrizclientes= new matriz()
                 //let aux=matrizclientes.listaCab.primero
                 
-                let aux=raizprimera.matriz.listaCab
+                //let aux=raizprimera.matriz.cabecerasDias.primero
                 //let aux= listaCab.primero
+                //raizprimera.matriz.insertarMatriz(evento,dia,hora)
+                //matriz1.cabecerasDias=new listaCabecera()
+                //matriz1.cabecerasHoras=new listaCabecera()
+                //aux=raizprimera.matriz.cabecerasHoras.primero
+                
+                matrizclientes.cabecerasDias=new listaCabecera()
+                matrizclientes.cabecerasHoras=new listaCabecera()
+
+                let aux=matrizclientes.cabecerasDias.primero
 
                 console.log(aux)
 
@@ -471,7 +730,7 @@ class arbolAVL{
                 
                 raizprimera.matriz.recorrermatriz2()
     
-                
+                */
             }else{
                 this.insertarMatriz2(raizprimera.izquierda,id,evento,dia,hora)
                 this.insertarMatriz2(raizprimera.derecha,id,evento,dia,hora)
@@ -514,7 +773,7 @@ class nodolistadoble{
         this.correoc=correoc;
         this.siguiente = null;
         this.anterior = null;
-        
+        //this.matriz1=new matriz()
     }
     
 }
@@ -559,8 +818,140 @@ class listaDobleEnlazada{
         return datos
     }
 
+    eliminar(id){
+        
+        let aux=this.primero
+        console.log(aux.idcliente)
+        //console.log(aux.anterior)
+
+       
+        while(aux!=null){
+            //console.log(aux.idcliente)
+            
+            if(aux.anterior!=null && aux.siguiente!=null && aux.idcliente==id){
+                //console.log("entre1")
+                //aux.siguiente=
+                aux.anterior.siguiente=aux.siguiente
+                aux.siguiente.anterior=aux.anterior
+                break;
+
+            }else{
+                if(aux.siguiente==null && aux.idcliente==id){
+                //console.log("hola")
+                aux=aux.anterior
+                aux.siguiente=null
+                break;
+                }else{
+                    if(aux.anterior==null && aux.idcliente==id){
+                        console.log("entre3")
+                        console.log(aux.idcliente)
+                        aux=aux.siguiente
+                        aux.anterior=null
+                        //return aux.idcliente
+                        break;
+        
+                    
+                    }
+                }
+
+            }
+            aux=aux.siguiente
+
+            
+        }
+        return aux.idcliente
+
+        
+        //return aux.idcliente
+
+    
+    }
+
     
 }
+
+
+class nodolistaMes{
+    constructor(mes){
+        this.mes = mes;
+        this.siguiente = null;
+        this.anterior = null;
+        this.matriz1 = new matriz()
+    }
+    
+}
+
+class listaMes{
+    constructor(){
+        this.primero = null;
+    }
+
+    insertarlistaMes(mes){
+        let nuevo = new nodolistaMes(mes); 
+
+        //console.log(mes)
+        if(mes==1 | mes==2 | mes==3 | mes==4 | mes==5 | mes==6 | mes==7 | mes==8 | mes==9 | mes==10 | mes==11 | mes==12){
+            if(this.primero == null){ 
+                this.primero = nuevo;
+            }else{
+                let aux = this.primero;
+                while(aux.siguiente != null){
+                    if(aux.mes==mes){
+                        console.log("No se puede insertar el valor por que ya existe");
+                        //return
+                    }
+                    aux = aux.siguiente;
+                };
+                if(aux.mes==mes){
+                    console.log("No se puede insertar el valor por que ya existe");
+                    //return
+                }
+                aux.siguiente = nuevo;
+                nuevo.anterior = aux;
+            }
+            
+
+        }else{
+            console.log("El valor es incorrecto")
+
+        }
+        
+    }
+
+    
+
+    mostrarlistaMes(){
+        let datos=""
+        datos+=" lista[ "
+        let aux = this.primero;
+        while(aux != null){
+            datos += aux.mes+" "
+            aux = aux.siguiente;
+        }
+        datos +="]"
+        return datos
+    }
+
+    existeMes(mes){
+        let aux=this.primero
+        let bool =false
+        
+        while(aux != null){
+            if(aux.mes==mes){
+                bool=true
+                return bool
+            }
+            aux=aux.siguiente
+        }
+        return bool
+
+        
+    }
+
+}
+
+
+//mesprueba.valorMes(1)
 // INICIA MATRIZ DINAMICA
 
 class nodoInterno{
@@ -570,7 +961,7 @@ class nodoInterno{
         this.hora = hora;
 
         this.sig = null;
-        this.ant = null;
+        this. anterior = null;
         this.arriba = null;
         this.abajo = null;
     }
@@ -589,16 +980,16 @@ class listaInterna{
         }else{
             if(nuevo.hora < this.primero.hora){
                 nuevo.sig = this.primero;
-                this.primero.ant = nuevo;
+                this.primero. anterior = nuevo;
                 this.primero = nuevo;
             }else{
                 let aux = this.primero;
                 while(aux != null){
                     if(nuevo.hora < aux.hora){
                         nuevo.sig = aux;
-                        nuevo.ant = aux.ant;
-                        aux.ant.sig = nuevo;
-                        aux.ant= nuevo;
+                        nuevo. anterior = aux. anterior;
+                        aux. anterior.sig = nuevo;
+                        aux. anterior= nuevo;
                         break;
                     }else if(nuevo.dia == aux.dia && nuevo.hora == aux.hora){
                         console.log("La posicion ya esta ocupada-> "+nuevo.dia+","+nuevo.hora);
@@ -606,7 +997,7 @@ class listaInterna{
                     }else{
                         if(aux.sig ==null){
                             aux.sig=nuevo;
-                            nuevo.ant = aux;
+                            nuevo. anterior = aux;
                             break;
                         }else{
                             aux = aux.sig;
@@ -674,7 +1065,7 @@ class nodoCabecera{
     constructor(dato){
         this.dato = dato;
         this.sig= null;
-        this.ant = null;
+        this. anterior = null;
         this.listaInterna = new listaInterna();
     }
 }
@@ -687,25 +1078,29 @@ class listaCabecera{
     insertarListaCabecera(nuevo){
 
         if(this.primero == null){
+
+
             this.primero = nuevo;
+
         }else{
             if(nuevo.dato<this.primero.dato){
                 nuevo.sig = this.primero;
-                this.primero.ant=nuevo;
+
+                this.primero. anterior=nuevo;
                 this.primero = nuevo;
             }else{
                 let aux = this.primero;
                 while(aux != null){
                     if(nuevo.dato < aux.dato){
                         nuevo.sig = aux;
-                        nuevo.ant = aux.ant;
-                        aux.ant.sig = nuevo;
-                        aux.ant = nuevo;
+                        nuevo. anterior = aux. anterior;
+                        aux. anterior.sig = nuevo;
+                        aux. anterior = nuevo;
                         break;
                     }else{
                         if(aux.sig == null){
                             aux.sig = nuevo;
-                            nuevo.ant = aux;
+                            nuevo. anterior = aux;
                             break;
                         }else{
                             aux = aux.sig;
@@ -764,37 +1159,7 @@ class matriz{
         nodoHoras.listaInterna.insertarHoras(valor,dias,horas);
     }
 
-    recorrerMatriz(){
-        let cadenaMatriz=" cabeceras Dias"
-        console.log("cabeceras Dias");
-        let aux = this.cabecerasDias.primero;
-        while(aux != null){
-            cadenaMatriz+="   pos->"+aux.dato;
-            console.log("   pos->"+aux.dato);
-            let aux2 = aux.listaInterna.primero;
-            while(aux2!= null){
-                cadenaMatriz+="       -"+aux2.valor
-                console.log("       -"+aux2.valor);
-                aux2 = aux2.sig;
-            }
-            aux = aux.sig;
-        }
-        cadenaMatriz+= "  cabeceras Horas"
-        console.log("cabeceras Horas");
-        aux = this.cabecerasHoras.primero;
-        while(aux != null){
-            cadenaMatriz+="   pos->"+aux.dato
-            console.log("   pos->"+aux.dato);
-            let aux2 = aux.listaInterna.primero;
-            while(aux2!= null){
-                cadenaMatriz+="       -"+aux2.valor
-                console.log("       -"+aux2.valor);
-                aux2 = aux2.abajo;
-            }
-            aux = aux.sig;
-        }
-        return cadenaMatriz;
-    }
+    
 
     recorrermatriz2(){
         let cadenaMatriz ="cabecera dias"
@@ -847,12 +1212,12 @@ class matriz{
     graficarMatriz(){
         let cadena="";
         cadena+= "digraph Matriz{ \n";
-        cadena+= "node[shape = box,width=0.7,height=0.7,fillcolor=\"azure2\" color=\"white\" style=\"filled\"];\n";
+        cadena+= "node[shape = box3d,width=0.7,height=0.7,fillcolor=\"lavender\" color=\"black\" style=\"filled\"];\n";
         cadena+= "edge[style = \"bold\"]; \n"
-        cadena+="node[label = Matriz fillcolor=\" darkolivegreen1\" pos = \"-1,1!\"]principal;"
+        cadena+="node[label = Calendario fillcolor=\"cornflowerblue\" pos = \"-1,1!\"]principal;"
         let auxDias = this.cabecerasDias.primero;
         while(auxDias!=null){
-            cadena+="node[label = "+auxDias.dato+" fillcolor=\" azure1\" pos = \""+auxDias.dato+",1!\"]x"+auxDias.dato+";\n"
+            cadena+="node[label = DIA"+auxDias.dato+" fillcolor=\" lavender\" pos = \""+auxDias.dato+",1!\"]x"+auxDias.dato+";\n"
             auxDias = auxDias.sig;
         }
         auxDias = this.cabecerasDias.primero;
@@ -868,7 +1233,7 @@ class matriz{
         
         let auxHoras = this.cabecerasHoras.primero;
         while(auxHoras!=null){
-            cadena+="node[label = "+auxHoras.dato+" fillcolor=\" azure1\" pos = \"-1,-"+auxHoras.dato+"!\"]y"+auxHoras.dato+";\n"
+            cadena+="node[label = HORA"+auxHoras.dato+" fillcolor=\" lavender\" pos = \"-1,-"+auxHoras.dato+"!\"]y"+auxHoras.dato+";\n"
             auxHoras = auxHoras.sig;
         }
         auxHoras = this.cabecerasHoras.primero;
@@ -885,7 +1250,7 @@ class matriz{
         while(auxDias!=null){
             let aux = auxDias.listaInterna.primero;
             while(aux!=null){
-                cadena+="   node[label = "+aux.valor+" fillcolor=\" gold2\" pos = \""+aux.dia+",-"+aux.hora+"!\"]x"+aux.dia+"y"+aux.hora+";\n"
+                cadena+="   node[label = "+aux.valor+" fillcolor=\" red\" pos = \""+aux.dia+",-"+aux.hora+"!\"]x"+aux.dia+"y"+aux.hora+";\n"
                 aux = aux.sig;
             }
 
@@ -919,6 +1284,7 @@ class matriz{
 
         cadena+= "\n}"
         console.log(cadena);
+        return cadena
     }
 }
 
@@ -964,20 +1330,20 @@ arbol.insertarnodoAVL1(100,"Mariajose","majo",21,"sebascss22@gmail.com","4512533
 //arbol.insertarlista2(arbol.raiz,30,100,"Alejandro","sebas@hotmail.com");
 //arbol.mostrar_nodos(arbol.raiz)
 
-//let matriz2 = new matriz();
+/*let matriz2 = new matriz();
 
-/*matriz1.insertarMatriz(57,5,7);
+matriz2.insertarMatriz(57,5,7);
 //matriz1.insertarMatriz(32,3,2);
 //matriz1.insertarMatriz(25,2,5);
 //matriz1.insertarMatriz(53,5,3);
-matriz1.insertarMatriz(67,6,7);
-matriz1.insertarMatriz(18,1,8);
-matriz1.insertarMatriz(74,7,4);
-matriz1.insertarMatriz(57,5,7)
+matriz2.insertarMatriz(67,6,7);
+matriz2.insertarMatriz(18,1,8);
+matriz2.insertarMatriz(74,7,4);
+matriz2.insertarMatriz(57,5,7)
 
 
-matriz1.recorrerMatriz();
-matriz1.graficarMatriz();*/
+matriz2.recorrerMatriz();
+matriz2.graficarMatriz();*/
 /*matriz2.insertarMatriz(57,5,7)
 matriz2.insertarMatriz(74,5,4);
 matriz2.insertarMatriz(87,5,6)
@@ -991,6 +1357,23 @@ matriz2.recorrermatriz2();*/
 
 
 //console.log(arbol.buscar2("sebbbasdl1","451253321",false))
+
+/*let mesprueba= new listaMes()
+mesprueba.insertarlistaMes(2)
+mesprueba.insertarlistaMes(3)
+mesprueba.insertarlistaMes(4)
+console.log(mesprueba.mostrarlistaMes())
+console.log(mesprueba.existeMes(11))*/
+
+
+/*listaxd=new listaDobleEnlazada()
+listaxd.insertarlista(10,"Sbas","sss@gmaiñ.com")
+listaxd.insertarlista(20,"Sbas","sss@gmaiñ.com")
+listaxd.insertarlista(22,"Sbas","sss@gmaiñ.com")
+listaxd.insertarlista(24,"Sbas","sss@gmaiñ.com")
+console.log(listaxd.eliminar(22))
+
+console.log(listaxd.mostrarlista())*/
 
 function obteneravl(){
     
@@ -1029,27 +1412,12 @@ function validar(usuariop, passwordp){
 
 }
 
-
+function registrarEnListaMes(idv,mes,evento,dia,hora) {
+    //console.log("muere")
+    arbol.insertarlista2MES(arbol.raiz,idv,mes,evento,dia,hora)
+    sessionStorage.setItem('arbol',JSON.stringify(CircularJSON.stringify(arbol)))
+}
 function registrarEnListaClientes(idV,idC,nombreC,correoC){
-    /*var arbol1=JSON.parse(sessionStorage.getItem('arbol'))
-    arbol= new arbolAVL()
-    arbol1= JSON.parse(arbol1)
-    Object.assign(arbol,arbol1)*/
-    /*arbol1=sessionStorage.getItem('arbol')
-    if(arbol==arbol1){
-        console.log("igual")
-    }else{
-        console.log("f")
-    }
-    arbol1.mostrar_nodos(arbol1.raiz)*/
-    //var arbolt=CircularJSON.stringify(arbol)
-    
-    //arbol.insertarlista2(arbol.raiz,idV,idC,nombreC,correoC)
-    //sessionStorage.setItem('arbol',JSON.stringify(arbol))
-    //JSON.parse(sessionStorage.getItem('arbol'))
-
-
-    //console.log("estoy aca"+arbol.raiz)
     
     arbol.insertarlista2(arbol.raiz,idV,idC,nombreC,correoC)
     
@@ -1062,6 +1430,13 @@ function registrarEnListaClientes(idV,idC,nombreC,correoC){
 
     //arbol.mostrar_nodos(arbol.raiz)
 
+}
+function eliminarcliente1(idv,id){
+    arbol.eliminarlista2(arbol.raiz,idv,id)
+    
+    
+    //sessionStorage.setItem('arbol',JSON.stringify(arbol))
+    sessionStorage.setItem('arbol',JSON.stringify(CircularJSON.stringify(arbol)))
 }
 //arbol.insertarnodoAVL1(40,"jorge","jorge1243",21,"sebascss22@gmail.com","451253321");
 
@@ -1082,6 +1457,7 @@ function registrarvendedor1(idRV,nombreRV,usuarioRV,edadRV,correoRV,passwordRV){
 
 function registrarevento(idE,evento,dia,hora){
     //console.log("muere")
+    
     arbol.insertarMatriz2(arbol.raiz,idE,evento,dia,hora)
     //sessionStorage.setItem('matriz1',JSON.stringify(CircularJSON.stringify(matriz1)))
 }
@@ -1106,13 +1482,24 @@ function recuperarListaDoble(){
     Object.assign(listad,listatemp1)
 
 }
+function recuperarListaMes(){
+    var listaMestemp1=CircularJSON.parse(JSON.parse(sessionStorage.getItem('listameses')))
+    listameses=new listaDobleEnlazada()
+    //arboltemp=CircularJSON.parse(arboltemp)
+    Object.assign(listameses,listaMestemp1)
+
+    var matriztemp1=CircularJSON.parse(JSON.parse(sessionStorage.getItem('matriz1')))
+    matriz1=new matriz()
+    Object.assign(matriz1,matriztemp1)
+    //matriz1.insertarMatriz(0,0,0)
+}
 
 function recuperarMatriz() {
     var matriztemp1=CircularJSON.parse(JSON.parse(sessionStorage.getItem('matriz1')))
     matriz1=new listaDobleEnlazada()
     Object.assign(matriz1,matriztemp1)
 
-    recuperarListaMatriz()
+   /* recuperarListaMatriz()
 
     listaCab=matriz1.cabecerasDias.primero
     listaCab2=matriz1.cabecerasHoras.primero
@@ -1163,7 +1550,7 @@ function recuperarMatriz() {
             aux=aux.sig
         }
 
-        
+       */ 
 
 }
 
@@ -1195,6 +1582,19 @@ function recuperarListaMatriz(){
     }
 
 }
+
+/*function recuperarlistaMes {
+    //var listaMestemp1=CircularJSON.parse(JSON.parse(sessionStorage.getItem('listameses')))
+    listameses=new listaMes()
+    //arboltemp=CircularJSON.parse(arboltemp)
+    Object.assign(listameses,listaMestemp1)
+
+    var listaMestemp1= CircularJSON.parse(JSON.parse(sessionStorage.getItem('listameses')))
+
+
+
+    
+}*/
 
 /*function recorreravl(raizprimera){
     if(raizprimera!=null){

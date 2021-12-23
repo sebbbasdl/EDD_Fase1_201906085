@@ -1,5 +1,6 @@
 document.querySelector('#btnGrafos').addEventListener('click',mostrarGrafos);
 document.querySelector('#btnGrafosV').addEventListener('click',mostrarGrafosV);
+document.querySelector('#btnGrafosE').addEventListener('click',mostrarGrafoE)
 
 var directionInput = document.getElementById("direction");
 var nodes = null;
@@ -164,6 +165,16 @@ function enlacesV(aux){
     }
     return edges
 
+}
+
+
+function mostrarGrafoE() {
+
+  recuperarAVL()
+  recuperarListaDoble()
+  texto=matriz1.graficarMatriz()
+  document.getElementById("texto").value=texto
+  
 }
 
 /*function alturanodo(aux){

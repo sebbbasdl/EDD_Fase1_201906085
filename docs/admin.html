@@ -17,7 +17,7 @@
         <input class="controls" type="correo" name="correo" value="" placeholder="Correo Electronico" id="txtCorreo2" >
         <input class="controls" type="password" name="contrasena" value="" placeholder="Contraseña" id="txtPassword" >
         <br><br>
-        <input class="buttons" type="button"  value="Registrar Cliente" id="btnRegistrarVendedor">
+        <input class="buttons" type="button"  value="Registrar Vendedor" id="btnRegistrarVendedor">
         
         
     </form>
@@ -34,7 +34,7 @@
           <input class="controls" type="edad" name="edad" value="" placeholder="Telefono" id="txtTelefono1" >
           <input class="controls" type="correo" name="correo" value="" placeholder="Correo Electronico" id="txtCorreo21" >
           <br><br>
-          <input class="buttons" type="button"  value="Registrar Cliente" id="btnRegistrarProveedor">
+          <input class="buttons" type="button"  value="Registrar Proveedor" id="btnRegistrarProveedor">
           
           
       </form>
@@ -55,18 +55,27 @@
       <input type="file", id="archivoClientes">
     </section>
 
-    <<br><br><br><br><br>
+    <br><br><br><br><br>
     <section class="form-loginA">
       <h5>CARGA DE ARCHIVO PROVEEDORES</h5>
       <input type="file", id="archivoProveedores">
     </section>
     <br><br><br><br><br>
+
+    <section class="form-loginA">
+      <h5>CARGA DE ARCHIVO EVENTOS</h5>
+      <input type="file", id="archivoEventos">
+    </section>
+    <br><br><br><br><br>
+
     <section class="form-login2">
       <h5>REPORTE</h5>
       <br>
       <input class="buttons" type="button"  value="PROVEEDORES" id="btnGrafos">
       <br><br>
       <input class="buttons" type="button"  value="VENDEDORES" id="btnGrafosV">
+      <br><br><br>
+      
       <br><br><br>
       <input type="hidden" id="direction" value="UD" />
       <div id="mynetwork">
@@ -76,6 +85,8 @@
       <br><br><br><br><br>
       
     </section>
+
+    <input type="text" id="texto">
 
      
     <script src="empleados.js"></script>  

@@ -3,6 +3,9 @@ document.querySelector('#btnRegistrarProveedor').addEventListener('click',regist
 document.querySelector('#archivoV').addEventListener('change',leerArchivoV,false)
 document.querySelector('#archivoClientes').addEventListener('change',leerArchivoClientes,false)
 document.querySelector('#archivoProveedores').addEventListener('change',leerArchivoProveedores,false)
+document.querySelector('#archivoEventos').addEventListener('change',leerArchivoEventos,false)
+
+
 
 
 
@@ -22,6 +25,7 @@ function registrarVendedor(){
     passwordV=document.querySelector('#txtPassword').value
     recuperarAVL()
     registrarvendedor1(idV,nombreV,usuarioV,edadV,correoV,passwordV)
+    alert("Vendedor registrado")
 
 }
 
@@ -42,6 +46,7 @@ function registrarProveedor(){
     recuperarABB()
 
     registrarproveedor1(idP,nombreP,direccionP,telefonoP,correoP)
+    alert("Proveedor registrado")
 
 
 }
@@ -180,6 +185,58 @@ function obtenerAProveedores(datos){
         
         
     }
+}
+
+function leerArchivoEventos(e) {
+    let archivoV=e.target.files[0]
+    if (!archivoV){
+        return;
+    }
+    const lector = new FileReader()
+    lector.onload = function(e){
+        const datos=e.target.result
+        //console.log(datos)
+        obtenerAEventos(datos)
+    }
+    lector.readAsText(archivoV)
+    
+}
+
+function obtenerAEventos(datos){
+
+    recuperarAVL()
+
+    recuperarListaMes()
+    console.log(datos)
+    var json= JSON.parse(datos)
+    console.log(json)
+
+
+    let size1e=json.vendedores.length
+
+    for (var i=0; i<=size1e-1;i++){
+        let size2e=json.vendedores[i].eventos.length
+        //console.log(size2)
+        for( var j=0; j<=size2e-1;j++){
+            idVen1=json.vendedores[i].id
+            mes1=json.vendedores[i].eventos[j].mes
+            dia1=json.vendedores[i].eventos[j].dia
+            hora1=json.vendedores[i].eventos[j].hora
+            evento1=json.vendedores[i].eventos[j].desc
+
+            console.log(idVen1+" "+mes1+" "+dia1+" "+hora1+" "+evento1)
+
+            registrarEnListaMes(idVen1,mes1,evento1,dia1,hora1)
+            
+            //registrarEnListaClientes(idVen,idCliente,nombre1,correo1)
+
+        }
+
+
+    }
+
+
+
 }
 
 

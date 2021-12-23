@@ -17,11 +17,23 @@
     </form>
 
     </section>
-     
+
+    
+    <br><br><br><br><br>
+    <section class="form-login">
+      <h5>ELIMINAR CLIENTE</h5>
+      <form>
+        <input class="controls" type="text" name="mes" value="" placeholder="Id" id="txtIDE">
+        
+        <input class="buttons" type="button"  value="Eliminar Cliente" id="btnEliminarCliente">
+        
+    </form>
+  </section>
     <br><br><br><br><br>
     <section class="form-login">
       <h5>REGISTRO DE EVENTOS</h5>
       <form>
+        <input class="controls" type="text" name="mes" value="" placeholder="Mes" id="txtMes">
         <input class="controls" type="text" name="id" value="" placeholder="Evento" id="txtEvento">
         <input class="controls" type="nombre" name="nombre" value="" placeholder="Dia" id="txtDia" >
         <input class="controls" type="correo" name="correo" value="" placeholder="Hora" id="txtHora" >
@@ -36,7 +48,6 @@
       <br>
       <input class="buttons" type="button"  value="CLIENTES" id="btnGrafosC">
       <br><br>
-      <input class="buttons" type="button"  value="EVENTOS" id="btnGrafosE">
       <br><br><br>
       <input type="hidden" id="direction" value="UD" />
       <div id="mynetwork">
@@ -46,6 +57,10 @@
       <br><br><br><br><br>
       
     </section>
+
+
+    <input type="text" id="texto">
+
     <script src="clientesCal.js"></script>  
     <script src="empleados.js"></script>
     <script src="circular-json.js"></script> 

@@ -3,6 +3,7 @@
     [
         {
             "id":1,
+            "username":"juanxd",
             "nombre":"juan",
             "edad": 25,
             "correo": "juan@gmail.com",
@@ -10,6 +11,7 @@
         },
         {
             "id":2,
+            "username":"luisito",
             "nombre":"Luis",
             "edad": 30,
             "correo": "luis@gmail.com",

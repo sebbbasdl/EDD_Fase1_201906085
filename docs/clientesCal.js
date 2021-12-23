@@ -1,6 +1,8 @@
 document.querySelector('#btnRegistrarCliente').addEventListener('click',registrarCliente);
 document.querySelector('#btnRegistrarEvento').addEventListener('click',registrarEvento);
 document.querySelector('#btnGrafosC').addEventListener('click',mostrarGrafosC);
+document.querySelector('#btnEliminarCliente').addEventListener('click',eliminarcliente);
+
 
 
 function registrarCliente(){
@@ -24,7 +26,10 @@ function registrarCliente(){
     recuperarAVL();
     recuperarListaDoble();
 
+
+
     registrarEnListaClientes(idV,idR,nombreR,correoR)
+    alert("Cliente registrado")
 
     
     //
@@ -33,21 +38,45 @@ function registrarCliente(){
 
 }
 
+function eliminarcliente(){
+    var ide=''
+    ide=document.querySelector('#txtIDE').value;
+    var idV = sessionStorage.getItem('id');
+    recuperarAVL()
+    recuperarListaDoble()
+
+    eliminarcliente1(idV,ide)
+
+}
+
 function registrarEvento(){
+    var mes=''
     var evento=''
     var dia=''
     var hora=''
-
+    mes=document.querySelector('#txtMes').value
     evento=document.querySelector('#txtEvento').value
     dia=document.querySelector('#txtDia').value
     hora=document.querySelector('#txtHora').value
     var idV = sessionStorage.getItem('id');
 
+    
     recuperarAVL()
-    recuperarMatriz()
-    recuperarListaMatriz()
+
+    recuperarListaMes()
+
+    registrarEnListaMes(idV,mes,evento,dia,hora)
+    //texto=matriz1.graficarMatriz()
+    //document.getElementById("texto").value=texto
+    alert("Evento Registrado")
+    
+
+    
+    
+
+    //recuperarListaMatriz()
     //console.log("muere")
-    registrarevento(idV,evento,dia,hora)
+    //registrarevento(idV,evento,dia,hora)
 
 }
 
@@ -92,6 +121,7 @@ function nodoslista(aux) {
 function mostrarGrafosC(){
     recuperarAVL()
     recuperarListaDoble()
+    
 
     var conteiner=document.getElementById("mynetwork");
     let nodes=[]
@@ -115,7 +145,8 @@ function mostrarGrafosC(){
     console.log(dot)
     var data = vis.parseDOTNetwork(dot);
     var network = new vis.Network(conteiner, data);
-
+    texto=matriz1.graficarMatriz()
+    document.getElementById("texto").value=texto
 }
 
 function nodoslista(aux){
