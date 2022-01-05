@@ -1,0 +1,30 @@
+{
+    "productos":
+    [
+        {
+            "id":1,
+            "nombre":"CocaCola",
+            "precio":150.75,
+            "cantidad":150
+        },
+        {
+            "id":10,
+            "nombre":"Pepsi",
+            "precio":150,
+            "cantidad":500
+        },
+        {
+            "id":5,
+            "nombre":"Fanta",
+            "precio":50,
+            "cantidad":100
+        },
+        {
+            "id":20,
+            "nombre":"Doritos",
+            "precio":14.90,
+            "cantidad":1000
+        }
+    ]
+}
+    

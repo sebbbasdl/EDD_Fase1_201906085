@@ -68,7 +68,7 @@
 
   .form-login2 {
     width: 1400px;
-    height: 1100px;
+    height: 1265px;
     background: #4e4d4d;
     margin: auto;
     margin-top: 0px;
@@ -91,4 +91,16 @@
     margin-bottom: 30px;
     border-bottom: 1px solid;
     font-size: 20px;
+  }
+
+  .form-loginA {
+    width: 1400px;
+    height: 100px;
+    background: #4e4d4d;
+    margin: auto;
+    margin-top: 0px;
+    box-shadow: 7px 13px 37px #000;
+    padding: 20px 30px;
+    border-top: 4px solid #017bab;
+    color: white;
   }

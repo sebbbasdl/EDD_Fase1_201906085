@@ -1,4 +1,6 @@
 //Arbol AVL, Lista doble enlazada , Matriz
+
+
 var idretorna=0
 var contador=0
 
@@ -1387,6 +1389,7 @@ function obteneravl(){
 
 function validar(usuariop, passwordp){
     recuperarAVL()
+    recuperarHash()
     //recuperarABB()
     //var arbol=obteneravl();
     var acceso=false
@@ -1402,6 +1405,9 @@ function validar(usuariop, passwordp){
         sessionStorage.setItem('password',passwordp)
         sessionStorage.setItem('id',id1)
         sessionStorage.setItem('arbol',arbol)
+        sessionStorage.setItem('tabla',tabla)
+        //sessionStorage.setItem('arbolb',arbolb)
+
 
         //sessionStorage.setItem('arbolabb',arbolabb)
 

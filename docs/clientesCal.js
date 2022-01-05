@@ -2,10 +2,13 @@ document.querySelector('#btnRegistrarCliente').addEventListener('click',registra
 document.querySelector('#btnRegistrarEvento').addEventListener('click',registrarEvento);
 document.querySelector('#btnGrafosC').addEventListener('click',mostrarGrafosC);
 document.querySelector('#btnEliminarCliente').addEventListener('click',eliminarcliente);
-
+document.querySelector('#archivoHash').addEventListener('change',leerArchivoHash,false)
 
 
 function registrarCliente(){
+    //recuperarHash()
+    //console.log(tabla.recorrer())
+    
     var idR ='';
     var nombreR='';
     var correoR='';
@@ -169,4 +172,110 @@ function nodoslista(aux){
     }
     return edges
 }*/
+
+function leerArchivoHash(e) {
+    
+
+    let archivoHash=e.target.files[0]
+    if (!archivoHash){
+        return;
+    }
+    const lector = new FileReader()
+    lector.onload = function(e){
+        const datos=e.target.result
+        //console.log(datos)
+        obtenerAHash(datos)
+    }
+    lector.readAsText(archivoHash)
+}
+
+function obtenerAHash(datos) {
+    var idV = sessionStorage.getItem('id');
+    //console.log(usuariop)
+    tabla1=new hash()
+    recuperarHash()
+    recuperarlistadearbol()
+    console.log(datos)
+    var json= JSON.parse(datos)
+    console.log(json)
+    //console.log(json.ventas[0].productos[2].id)
+    let size1=json.ventas.length
+    //size2=json.ventas[0].productos.length
+    let total1=0
+    //console.log(size1+" "+ size2)
+    for (var i=0; i<=size1-1;i++){
+        let size2=json.ventas[i].productos.length
+        
+        idVen=json.ventas[i].id
+        NombreVen=json.ventas[i].vendedor
+        NombreCl=json.ventas[i].cliente
+        //console.log(size2)
+        //console.log("Total: "+total)
+        total1=0
+
+        if(idVen==idV){
+            console.log("holaaaaaaaaa")
+            for( var j=0; j<=size2-1;j++){
+            
+            
+                idPro=json.ventas[i].productos[j].id
+                cantidad=json.ventas[i].productos[j].cantidad
+                
+                precio=listaA.existePro(idPro)
+                console.log(json.ventas[i].id) 
+                multi=precio*cantidad
+                total1+=multi    
+                console.log(total1)
+                console.log(idVen+" "+NombreVen+" "+NombreCl+" "+idPro+" "+cantidad)
+    
+                //if(j<size-1){
+    
+                //}
+    
+                //if(idVen)
+                
+                //registrarEnListaproductos(idVen,idCliente,nombre1,correo1)
+            }console.log("Total: "+total1+" Vendedor: "+NombreVen+" Cliente: "+NombreCl)
+            tabla1.insertar(new nodot(idVen,NombreVen,NombreCl,total1))
+
+        }
+        /*for( var j=0; j<=size2-1;j++){
+            
+            
+            idPro=json.ventas[i].productos[j].id
+            cantidad=json.ventas[i].productos[j].cantidad
+            
+            precio=listaA.existePro(idPro)
+            console.log(json.ventas[i].id) 
+            multi=precio*cantidad
+            total1+=multi    
+            console.log(total1)
+            console.log(idVen+" "+NombreVen+" "+NombreCl+" "+idPro+" "+cantidad)
+
+            //if(j<size-1){
+
+            //}
+
+            //if(idVen)
+            
+            //registrarEnListaproductos(idVen,idCliente,nombre1,correo1)
+
+        }*/
+        //console.log("Total: "+total1+" Vendedor: "+NombreVen+" Cliente: "+NombreCl)
+        //tabla.insertar(new nodot(idVen,NombreVen,NombreCl,total1))
+        
+
+
+
+    }
+    textolista=listaA.mostrarlista()
+    texto=tabla1.recorrer(textolista) 
+
+    tablahtml=document.getElementById("tabla1")
+    //tablahtml.innerHTML="<tr>\n\t<td>hola</td>\n</tr>\n<tr>\n\t<td>hola2</td>\n</tr>"
+    tablahtml.innerHTML=texto
+    sessionStorage.setItem('tabla1',JSON.stringify(CircularJSON.stringify(tabla1)))   
+
+    
+}
 

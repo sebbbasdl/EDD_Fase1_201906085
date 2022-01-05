@@ -53,6 +53,7 @@ function ingresoCorrecto(rol){
         //var arboltemp=JSON.stringify(arbol)
         //sessionStorage.setItem('arbol',CircularJSON.stringify(arbol))
         sessionStorage.setItem('arbol',JSON.stringify(CircularJSON.stringify(arbol)))
+        sessionStorage.setItem('tabla',JSON.stringify(CircularJSON.stringify(tabla)))
         
         location.href='vendedor.html'
         
@@ -61,6 +62,11 @@ function ingresoCorrecto(rol){
         //var arboltemp=JSON.parse(sessionStorage.getItem('arbol',JSON.stringify('arbol')))
         //var arboltemp=JSON.stringify(arbol)
         //sessionStorage.setItem('arbol',JSON.stringify(arboltemp))
+        //sessionStorage.setItem('arbolb',JSON.stringify(CircularJSON.stringify(arbolb)))
+        //JSON.parse(sessionStorage.getItem('arbolb',JSON.stringify('arbolb')))
+        
+        //sessionStorage.setItem('arbolb',JSON.stringify(CircularJSON.stringify(arbolb)))
+        //console.log(JSON.parse(CircularJSON.parse(localStorage.getItem('arbolb'))))
 
         
         window.location.href='admin.html'

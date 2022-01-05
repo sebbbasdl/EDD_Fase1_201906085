@@ -4,7 +4,11 @@ document.querySelector('#archivoV').addEventListener('change',leerArchivoV,false
 document.querySelector('#archivoClientes').addEventListener('change',leerArchivoClientes,false)
 document.querySelector('#archivoProveedores').addEventListener('change',leerArchivoProveedores,false)
 document.querySelector('#archivoEventos').addEventListener('change',leerArchivoEventos,false)
-
+document.querySelector('#btnRegistrarProducto').addEventListener('click',registrarProducto);
+document.querySelector('#archivoGrafos').addEventListener('change',leerArchivoGrafos,false)
+document.querySelector('#archivoHash').addEventListener('change',leerArchivoHash,false)
+document.querySelector('#archivoProducto').addEventListener('change',leerArchivoProducto,false)
+//document.querySelector('#btnReporteGrafo').addEventListener('click',mostrarGrafo);
 
 
 
@@ -239,4 +243,262 @@ function obtenerAEventos(datos){
 
 }
 
+//fase 2
+function registrarProducto(){
 
+    //recuperarB()
+    
+    //console.log(JSON.parse(CircularJSON.parse(sessionStorage.getItem('arbolb'))))
+    //sessionStorage.setItem('arbolb',JSON.stringify(CircularJSON.stringify(arbolb)))
+    //console.log(JSON.parse(CircularJSON.parse(sessionStorage.getItem('arbolb'))))
+    //sessionStorage.setItem('arbolb',JSON.stringify(CircularJSON.stringify(arbolb)))
+    recuperarlistadearbol()
+    
+    console.log(JSON.parse(CircularJSON.parse(localStorage.getItem('arbolb'))))
+    var idPro ='';
+    var nombrePro='';
+    var precio='';
+    var cantidad='';
+
+    idPro=document.querySelector('#txtIDPRO').value;
+    nombrePro=document.querySelector('#txtNombrePRO').value;
+    precio=document.querySelector('#txtPrecio').value
+    cantidad=document.querySelector('#txtCantidad').value
+
+    /*listaA.insertarlista(idPro,nombrePro,precio,cantidad)
+    sessionStorage.setItem('listaA',JSON.stringify(CircularJSON.stringify(listaA)))
+    console.log(listaA.mostrarlista())
+
+    let aux=listaA.primero
+        while(aux != null){
+
+            arbolb.insertar_nodo(aux.idPro,aux.nombre,aux.precio,aux.cantidad)
+            
+            aux=aux.siguiente
+        }*/
+        
+
+    
+    //JSON.parse(sessionStorage.getItem('arbolb',JSON.stringify('arbolb')))
+    //CircularJSON.parse(JSON.parse(sessionStorage.getItem('arbolb')))
+    /*sessionStorage.setItem('arbolb',JSON.stringify(CircularJSON.stringify(arbolb)))
+    console.log(arbolb.graficar())*/
+    //arbolb.insertar_nodo(idPro,nombrePro,precio,cantidad)
+    //sessionStorage.setItem('arbolb',JSON.stringify(arbolb))
+    registrarproducto(idPro,nombrePro,precio,cantidad)
+    //sessionStorage.setItem('arbolb',JSON.stringify(CircularJSON.stringify(arbolb)))
+    //console.log(arbolb.graficar())
+    //location.href="admin.html";
+
+}
+
+
+function leerArchivoGrafos(e){
+    let archivoGrafo=e.target.files[0]
+    if (!archivoGrafo){
+        return;
+    }
+    const lector = new FileReader()
+    lector.onload = function(e){
+        const datos=e.target.result
+        //console.log(datos)
+        obtenerAGrafo(datos)
+    }
+    lector.readAsText(archivoGrafo)
+
+
+}
+
+function obtenerAGrafo(datos) {
+
+    recuperarGrafo();
+    console.log(datos)
+    var json= JSON.parse(datos)
+    console.log(json)
+    //console.log(json.vendedores[0].clientes[2].id)
+    let size1=json.rutas.length
+    //size2=json.vendedores[0].clientes.length
+
+    //console.log(size1+" "+ size2)
+    for (var i=0; i<=size1-1;i++){
+        let size2=json.rutas[i].adyacentes.length
+        idB=json.rutas[i].id
+        nombreB=json.rutas[i].nombre
+        console.log(idB+" "+nombreB)
+        //console.log(size2)
+        //grafo1.insertar(idB,nombreB)
+
+        if(grafo1.buscarDato(idB,nombreB)==null){
+            grafo1.insertar(idB,nombreB)
+        }else{
+            console.log("")
+        }
+
+        for( var j=0; j<=size2-1;j++){
+            
+            idB2=json.rutas[i].adyacentes[j].id
+            nombre=json.rutas[i].adyacentes[j].nombre
+            distancia=json.rutas[i].adyacentes[j].distancia
+            
+            if(grafo1.buscarDato(idB2)==null){  
+                console.log("ENTRE")  
+                grafo1.insertar(idB2,nombre)
+                grafo1.insertarAdyacente(idB,idB2,nombre,distancia)
+                
+            }else{
+                console.log("--->"+idB2+" "+nombre+" "+distancia)
+                grafo1.insertarAdyacente(idB,idB2,nombre,distancia)
+            }
+            
+            
+            //grafo1.insertarAdyacente(idB2,idB,nombre,distancia)
+            console.log(grafo1.buscarDato(idB2))
+            
+            //registrargrafo()
+
+        }
+
+        
+        
+
+
+    }
+    //grafo1.graficar()
+    texto=grafo1.graficar()
+    document.getElementById("texto").value=texto
+    
+    sessionStorage.setItem('grafo',JSON.stringify(CircularJSON.stringify(grafo1)))
+    mostrarGrafo1(grafo1.primero)
+    
+}
+
+
+function leerArchivoHash(e) {
+    
+
+    let archivoHash=e.target.files[0]
+    if (!archivoHash){
+        return;
+    }
+    const lector = new FileReader()
+    lector.onload = function(e){
+        const datos=e.target.result
+        //console.log(datos)
+        obtenerAHash(datos)
+    }
+    lector.readAsText(archivoHash)
+}
+
+function obtenerAHash(datos) {
+    
+    recuperarHash()
+    recuperarlistadearbol()
+    console.log(listaA.mostrarlista())
+    tabla=new hash()
+    console.log(datos)
+    var json= JSON.parse(datos)
+    console.log(json)
+    //console.log(json.ventas[0].productos[2].id)
+    let size1=json.ventas.length
+    //size2=json.ventas[0].productos.length
+    let total1=0
+    //console.log(size1+" "+ size2)
+    for (var i=0; i<=size1-1;i++){
+        let size2=json.ventas[i].productos.length
+        
+        idVen=json.ventas[i].id
+        NombreVen=json.ventas[i].vendedor
+        NombreCl=json.ventas[i].cliente
+        //console.log(size2)
+        //console.log("Total: "+total)
+        total1=0
+        for( var j=0; j<=size2-1;j++){
+            
+            idPro=json.ventas[i].productos[j].id
+            cantidad=json.ventas[i].productos[j].cantidad
+            
+            precio=listaA.existePro(idPro)
+            console.log(json.ventas[i].id) 
+            multi=precio*cantidad
+            total1+=multi    
+            console.log(total1)
+            console.log(idVen+" "+NombreVen+" "+NombreCl+" "+idPro+" "+cantidad)
+            //let cadenapro=""
+            //cadenapro+="<td> Id:"+idPro+""
+
+            //if(j<size-1){
+
+            //}
+
+            //if(idVen)
+            
+            //registrarEnListaproductos(idVen,idCliente,nombre1,correo1)
+
+
+        }
+        console.log("Total: "+total1+" Vendedor: "+NombreVen+" Cliente: "+NombreCl)
+        tabla.insertar(new nodot(idVen,NombreVen,NombreCl,total1))
+        
+
+
+
+    }
+
+    textolista=listaA.mostrarlista()
+    texto=tabla.recorrer(textolista) 
+
+    tablahtml=document.getElementById("tabla")
+    //tablahtml.innerHTML="<tr>\n\t<td>hola</td>\n</tr>\n<tr>\n\t<td>hola2</td>\n</tr>"
+    tablahtml.innerHTML=texto
+    sessionStorage.setItem('tabla',JSON.stringify(CircularJSON.stringify(tabla)))   
+
+    
+}
+
+function leerArchivoProducto(e) {
+    let archivoPro=e.target.files[0]
+    if (!archivoHash){
+        return;
+    }
+    const lector = new FileReader()
+    lector.onload = function(e){
+        const datos=e.target.result
+        //console.log(datos)
+        obtenerAPro(datos)
+    }
+    lector.readAsText(archivoPro)
+    
+}
+
+function obtenerAPro(datos) {
+    recuperarlistadearbol()
+    console.log(datos)
+    var json= JSON.parse(datos)
+    console.log(json)
+    console.log(json. productos[0].id)
+    console.log(JSON.stringify(json. productos[1]))
+    size=json. productos.length
+    console.log(size)
+
+    for (var i=0; i<=size-1;i++){
+        //console.log(json. productos[i])
+        //console.log("soy i "+i)
+        idP=json. productos[i].id
+        nombreP=json. productos[i].nombre
+        precioP=json. productos[i].precio
+        cantidadP=json. productos[i].cantidad
+        
+        console.log(idP+" "+nombreP+" "+precioP+" "+cantidadP)
+        registrarproducto(idP,nombreP,precioP,cantidadP)
+        //registrarvendedor1(id,nombre,usuario,edad,correo,password)
+        
+    }
+}
+
+function mostrarGrafo(){
+    recuperarGrafo()
+    console.log(grafo1.mostrar())
+    texto=grafo1.graficar()
+    document.getElementById("texto").value=texto
+  
+  }

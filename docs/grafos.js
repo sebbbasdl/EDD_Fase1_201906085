@@ -1,6 +1,10 @@
+
 document.querySelector('#btnGrafos').addEventListener('click',mostrarGrafos);
 document.querySelector('#btnGrafosV').addEventListener('click',mostrarGrafosV);
-document.querySelector('#btnGrafosE').addEventListener('click',mostrarGrafoE)
+//document.querySelector('#btnGrafosE').addEventListener('click',mostrarGrafoE)
+document.querySelector('#btnReportePro').addEventListener('click',mostrarReportePro);
+//document.querySelector('#btnReporteGrafo').addEventListener('click',mostrarGrafo1);
+//document.querySelector('#btnReporteGrafo').addEventListener('click',mostrarArbolB);
 
 var directionInput = document.getElementById("direction");
 var nodes = null;
@@ -59,6 +63,7 @@ function mostrarGrafosV(){
     nodes=[]
     edges=[]
     //alto=[]
+    //crypto.createHash('sha256').update(arbol.raiz).digest('hex')
     var connectionCount = [];
     nodes=nodosV(arbol.raiz)
     edges=enlacesV(arbol.raiz)
@@ -176,6 +181,82 @@ function mostrarGrafoE() {
   document.getElementById("texto").value=texto
   
 }
+
+function mostrarReportePro() {
+  recuperarlistadearbol()
+  //recuperarlistadearbol()
+    arbolb=new ArbolB()
+    //listaA.insertarlista(idpro,nombre,precio,cantidad)
+    //sessionStorage.setItem('listaA',JSON.stringify(CircularJSON.stringify(listaA)))
+    //console.log(listaA.mostrarlista())
+
+    let aux=listaA.primero
+        while(aux != null){
+
+            arbolb.insertarNodoArbolB(aux.idPro,aux.nombre,aux.precio,aux.cantidad)
+            
+            aux=aux.siguiente
+        }
+    sessionStorage.setItem('arbolb',JSON.stringify(CircularJSON.stringify(arbolb)))
+    console.log(arbolb.graficar())
+    texto=arbolb.graficar()
+    document.getElementById("texto").value=texto
+}
+
+function mostrarGrafo(){
+  recuperarGrafo()
+  console.log(grafo1.mostrar())
+  texto=grafo1.graficar()
+  document.getElementById("texto").value=texto
+
+}
+
+function mostrarGrafo1(pri) {
+  grafo1=new grafo()
+  //console.log("hola")
+  //recuperarGrafo()
+  nodes=[]
+  edges=[]
+  //alto=[]
+  var connectionCount = [];
+  console.log(pri)
+  nodes=nodosGrafo(pri)
+  edges=enlacesGrafo(pri)
+  console.log(nodes)
+  console.log(edges)
+
+  var container = document.getElementById("mynetwork");
+  var data = {
+    nodes: nodes,
+    edges: edges,
+  };
+  var options = {};
+  var network = new vis.Network(container, data, options);
+  
+  }
+
+function nodosGrafo(aux){
+  while(aux!=null){
+    //console.log("hola"+aux)
+    nodes.push({id: aux.id, label: aux.nombre})
+    aux=aux.siguiente
+  }
+
+  return nodes
+}
+function enlacesGrafo(aux) {
+  while(aux!=null){
+     let aux2=aux.adyasentes.primero
+     while(aux2!=null){
+       edges.push({from:aux.id, to:aux2.id, arrows:"to,from",label:aux2.ponderacion+"km"})
+       aux2=aux2.siguiente
+     }
+     aux=aux.siguiente
+  }
+  return edges
+}
+
+
 
 /*function alturanodo(aux){
     

@@ -68,12 +68,62 @@
     </section>
     <br><br><br><br><br>
 
+    <br><br><br><br><br>
+    <section class="form-login">
+        <h5>REGISTRO DE PRODUCTOS</h5>
+        <form>
+          <input class="controls" type="text" name="id" value="" placeholder="Id" id="txtIDPRO">
+          <input class="controls" type="nombre" name="nombrePro" value="" placeholder="Nombre" id="txtNombrePRO" >
+          <input class="controls" type="text" name="precio" value="" placeholder="Precio" id="txtPrecio">
+          
+          <input class="controls" type="edad" name="Cantidad" value="" placeholder="Cantidad" id="txtCantidad" >
+          
+          <br><br>
+          <input class="buttons" type="button"  value="Registrar Producto" id="btnRegistrarProducto">
+          
+          
+      </form>
+
+      
+      
+    </section>
+
+
+    <br><br><br><br><br>
+
+    <section class="form-loginA">
+      <h5>CARGA DE ARCHIVO PRODUCTOS</h5>
+      <input type="file", id="archivoProducto">
+    </section>
+    <br><br><br><br><br>
+
+    <section class="form-loginA">
+      <h5>CARGA DE ARCHIVO GRAFO</h5>
+      <input type="file", id="archivoGrafos">
+    </section>
+
+    <br><br><br><br><br>
+
+    <section class="form-loginA">
+      <h5>CARGA DE ARCHIVO VENTAS</h5>
+      <input type="file", id="archivoHash">
+    </section>
+    
+
+
+
+    <br><br><br><br><br>
     <section class="form-login2">
       <h5>REPORTE</h5>
       <br>
+      <input type="text" id="texto">
+      <br><br>
       <input class="buttons" type="button"  value="PROVEEDORES" id="btnGrafos">
       <br><br>
       <input class="buttons" type="button"  value="VENDEDORES" id="btnGrafosV">
+      <br><br>
+      <input class="buttons" type="button"  value="PRODUCTOS" id="btnReportePro">
+      
       <br><br><br>
       
       <br><br><br>
@@ -83,10 +133,19 @@
       </div>
       <br><br><br><br><br>
       <br><br><br><br><br>
+      <h5>TABLA DE VENTAS</h5>
+      <TABLE BORDER="3" CELLSPACING="5" WIDTH="550" id="tabla">
+        
+      </TABLE>
       
+      <br><br><br><br><br>
+      <br><br><br><br><br>
     </section>
+    <br><br><br><br><br>
+      <br><br><br><br><br>
+    
 
-    <input type="text" id="texto">
+    
 
      
     <script src="empleados.js"></script>  
@@ -94,7 +153,10 @@
     <script src="circular-json.js"></script> 
     <script src="proveedores.js"></script> 
     <script src="grafos.js"></script> 
+    <script src="tabla.js"></script> 
+    <script src="inventario.js"></script>
     <script src="vis-network.min.js"></script> 
+    <script src="sjcl.js"></script>
     
     
     
